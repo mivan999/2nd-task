@@ -2,17 +2,17 @@ import React, {useContext} from 'react';
 import {observer} from "mobx-react-lite";
 import {Card, Col, Row} from "antd";
 import {Context} from "../index";
-import VideoItem from "./VideoItem";
+import VideoItems from "./VideoItems";
 
 
-const VideoList = observer(() => {
+const VideoLists = observer(() => {
   const {video} = useContext(Context);
 
     return (
         <Row>
 
                {video.getVideo().map(videos=>
-                <VideoItem
+                <VideoItems
                     key={videos.id}
                     videos={videos}
                 />
@@ -26,4 +26,4 @@ const VideoList = observer(() => {
     );
 });
 
-export default VideoList;
+export default VideoLists;

@@ -1,22 +1,20 @@
 import {makeAutoObservable} from "mobx";
 
-export default class UserStore {
+export default class RequestStore {
     constructor(){
-        this._isAuth = false
-        this._user = {}
+        this._request = [
+            {id:1, name: "чем кормить кота"},
+            {id:2, name: "чем кормить пса"}
+             ]
+
         makeAutoObservable(this)
     }
 
-    setIsAuth(bool){
-        this._isAuth=bool
+
+    setRequest(request){
+        this._request=request
     }
-    setUser(user){
-        this._user=user
-    }
-    getIsAuth(){
-        return this._isAuth
-    }
-    getUser(){
-        return  this._user
+    getRequest(){
+        return  this._request
     }
 }

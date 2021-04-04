@@ -1,7 +1,7 @@
 import React from 'react';
 import {Card, Col} from "antd";
 
-const VideoItem = ({videos}) => {
+const VideoItems = ({videos}) => {
     console.log({videos});
     return (
         <Col block span={5} offset={1}>
@@ -15,4 +15,4 @@ const VideoItem = ({videos}) => {
     );
 };
 
-export default VideoItem;
+export default VideoItems;
