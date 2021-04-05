@@ -1,20 +1,32 @@
 import React from 'react';
-import { Col, Input, Layout, Menu, Row} from "antd";
-import HeartOutlined from "@ant-design/icons/es/icons/HeartOutlined";
-import VideoItems from "../components/VideoItems";
-import VideoLists from "../components/VideoLists";
-import AddFavourit from "../components/modals/Add";
-import Searchbar from "../components/Searchbar";
+import {  Layout, Menu, Row,Pagination} from "antd";
+// import HeartOutlined from "@ant-design/icons/es/icons/HeartOutlined";
+// import VideoItems from "../components/VideoItems";
+// import VideoLists from "../components/VideoLists";
+// import AddFavourit from "../components/modals/Add";
+// import Searchbar from "../components/Searchbar";
 import Appp from "../components/appp";
-import VideoList from "../components/VideoList";
+// import VideoList from "../components/VideoList";
 import './youtube.css';
+import {LOGIN_ROUTE} from "../utils/consts";
+import {useHistory} from "react-router-dom";
+import {Context} from "../index";
 
 const Youtube = () => {
-    const { Search } = Input;
+    // const { Search } = Input;
     const { Header, Content, Footer } = Layout;
-    const fav=()=>{
-
+    const {user} = React.useContext(Context)
+    const history = useHistory();
+    const test=()=>{
+        console.log(user.getIsAuth());
     };
+    const logout=()=>{
+        user.setUser({})
+        user.setIsAuth(false)
+        localStorage.removeItem('token');
+        history.push(LOGIN_ROUTE)
+      
+    }
     return (
         <Layout className="layout">
             <Header style={{  background: '#fff', zIndex: 1, width: '100%' }}>
@@ -33,8 +45,8 @@ const Youtube = () => {
                 <Menu theme="light" mode="horizontal" defaultSelectedKeys={['1']}>
 
                     <Menu.Item key="1">Поиск</Menu.Item>
-                    <Menu.Item key="2">Избранное</Menu.Item>
-                    <Menu.Item style={{float:"right"}} key="3">Выход</Menu.Item>
+                    <Menu.Item key="2" onClick={test}>Избранное</Menu.Item>
+                    <Menu.Item style={{float:"right"}} key="3" onClick={logout}>Выход</Menu.Item>
 
                 </Menu>
             </Header>
@@ -48,7 +60,7 @@ const Youtube = () => {
 
 
                     </div>
-
+                    <Pagination defaultCurrent={1} total={50} />
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>

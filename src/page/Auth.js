@@ -1,10 +1,18 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import {Form, Input, Button, Row, Col, Image, Typography, Space} from 'antd';
+import {Form, Input, Button, Row, Col, Typography} from 'antd';
 import './Auth.css';
-import {login, registration} from "../http/userAPI";
-import {values} from "mobx";
+
+//import {login, registration} from "../http/userAPI";
+//import {values} from "mobx";
+import {YOUTUBE_ROUTE} from "../utils/consts";
+import { useHistory} from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
+
 const jwt =require('jsonwebtoken');
+
 
 const layout = {
     labelCol: { span: 8 },
@@ -18,41 +26,65 @@ const tailLayout = {
 const { Title } = Typography;
 
 
-const Auth = () => {
+const Auth = observer(() => {
+    const {user} = React.useContext(Context)
     const [loginVal, setLogin]=React.useState('');
     const [password, setPassword]=React.useState('');
+    const history = useHistory();
+
+    React.useEffect(() => { 
+        console.log(user.getIsAuth()+" пользователь")
+       
+    },[]);
+    // React.useEffect(() => { 
+    //     // console.log("test")
+    //     if(localStorage.getItem("token")){
+    //         console.log(user.getIsAuth()+" useref")
+    //         let decode=jwt_decode(localStorage.getItem("token"))
+    //         if(decode.data==="admin"){ 
+    //         console.log("success")
+    //         user.setIsAuth(true)
+    //         history.push(YOUTUBE_ROUTE)   
+    //      }
+    //     }
+    // },[]);
+
     const style = { background: '#fff', padding: '0px ', margin:'20% 0%' };
 
-    const onFinish = (values: any) =>{
-        console.log('test');
-        console.log(values);
+    // const onFinish = (values: any) =>{
+        
+    // };
 
-    };
-
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
-    const signIn= (values)=>{
-        // const response= await login();
+    const signIn= ()=>{
+        console.log("home")
+        if(loginVal==="admin" && password==="qwe"){
+            console.log("seccses valid login")
+            const token=jwt.sign(
+                {
+                    data:loginVal
+                }, 'secret', { expiresIn: '24h' }
+            )
+            localStorage.setItem('token', token)
+            user.setUser(user)
+            user.setIsAuth(true)
+            console.log(user.getIsAuth())
+            if(history.push(YOUTUBE_ROUTE)){
+            console.log("routing")}
 
-        const token=jwt.sign(
-            {values},
-            "secret",
-            {expiresIn:'24h'}
-        )
-        console.log(token);
-        // if(response.username="admin" & response.password="qwe"){
-        //
-        // }
-
-    };
+           // console.log(user.getIsAuth())
+       };
+    }
+         
     return (
 
         <Row  className="rowstyle" justify="space-around" align="center" >
             <Col span={10}>
                 <div style={style}>
                     <Row  justify="center">
-                        <img src="https://hh.ru/employer-logo/2658382.png"/>
+                        <img alt="logo" src="https://hh.ru/employer-logo/2658382.png"/>
                         {/*<Image preview="false" align="middle"*/}
                         {/*        width={200}*/}
                         {/*        src="https://hh.ru/employer-logo/2658382.png"*/}
@@ -95,9 +127,10 @@ const Auth = () => {
 
 
                             <Form.Item  {...tailLayout}>
-                                <Button onClick={signIn} type="primary" htmlType="submit">
+                                <Button type="primary" htmlType="submit">
                                     Войти
                                 </Button>
+                               
                             </Form.Item>
                         </Form>
                     </Row>
@@ -108,7 +141,7 @@ const Auth = () => {
         </Row>
 
 );
-};
+});
 
 export  default Auth;
 
