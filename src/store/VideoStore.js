@@ -1,25 +1,38 @@
-import {makeAutoObservable} from "mobx";
+import { makeAutoObservable } from "mobx";
 
 export default class VideoStore {
-    constructor(){
-        this._id=[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-        this._videos = [
-            {id:1, name: "видео1"},
-            {id:2, name: "видео2"},
-            {id:3, name: "видео3"},
-            {id:4, name: "видео4"},
-            {id:5, name: "Видео5"},
-            {id:6, name: "Видео6"}
-        ]
+  constructor() {
+    this._id = [];
+    this._page = 1;
+    this._totalCount = 0;
+    this._limit = 3;
+    this._videos = [];
 
-        makeAutoObservable(this)
-    }
+    makeAutoObservable(this);
+  }
 
-
-    setVideo(videos){
-        this._videos=videos
-    }
-    getVideo(){
-        return  this._videos
-    }
+  setVideo(videos) {
+    this._videos = videos;
+  }
+  setPage(page) {
+    this._page = page;
+  }
+  setTotalCount(totalCount) {
+    this._totalCount = totalCount;
+  }
+  setLimit(limit) {
+    this._limit = limit;
+  }
+  getPage() {
+    return this._page;
+  }
+  getTotalcount() {
+    return this._totalCount;
+  }
+  getLimit() {
+    return this._limit;
+  }
+  getVideo() {
+    return this._videos;
+  }
 }

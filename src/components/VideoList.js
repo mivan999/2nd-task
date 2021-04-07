@@ -1,12 +1,29 @@
-import React from 'react';
-import VideoItem from './VideoItem';
+import React, {useContext} from 'react';
+import {observer} from "mobx-react-lite";
+import {Card, Col, Row} from "antd";
+import {Context} from "../index";
+import VideoItem from "./VideoItem";
 
-const VideoList = ({videos , handleVideoSelect}) => {
-    const renderedVideos =  videos.map((video) => {
-        return <VideoItem key={video.id.videoId} video={video} handleVideoSelect={handleVideoSelect} />
-        // console.log(video.id);
-    });
 
-    return <div className='ui relaxed divided list'>{renderedVideos}</div>;
-};
-export default VideoList;
+const VideoLists = observer(({videos}) => {
+  // const {video} = useContext(Context);
+console.log("videolist", videos )
+    return (
+        <Row>
+
+               {videos.map(videos=>
+                <VideoItem
+                    key={videos.id}
+                    video={videos}
+                />
+
+            )}
+
+            {/*{video.getVideo.map(video=>*/}
+            {/*    <VideoItem key={video.id} video={video}/>*/}
+            {/*    )}*/}
+        </Row>
+    );
+});
+
+export default VideoLists;

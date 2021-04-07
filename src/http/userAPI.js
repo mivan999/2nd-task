@@ -1,5 +1,5 @@
     import {$authHost, $host} from "./index";
-
+    
     // export const registration=async (login, password)=>await $host.post('api/user/registration', {email, password})
     //     return response
     // }

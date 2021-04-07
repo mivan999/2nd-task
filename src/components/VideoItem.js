@@ -2,6 +2,7 @@ import React from 'react';
 
 
 const VideoItem = ({video}) => {
+    console.log("items v ", video);
     return (
         <div className=' video-item item'>
             <img className='ui image' src={video.snippet.thumbnails.medium.url} alt={video.snippet.description}/>

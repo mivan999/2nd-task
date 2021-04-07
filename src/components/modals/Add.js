@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
 const AddFavourit = () => {
     const [isModalVisible, setIsModalVisible] = useState(true);
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
+    // const showModal = () => {
+    //     setIsModalVisible(true);
+    // };
 
     const handleOk = () => {
         setIsModalVisible(false);
