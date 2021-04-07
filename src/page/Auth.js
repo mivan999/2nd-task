@@ -68,10 +68,16 @@ const Auth = observer(() => {
       localStorage.setItem("token", token);
       
       console.log("пользователь авторизован", user.getIsAuth());
-      if (history.push(YOUTUBE_ROUTE)) {
-        console.log("routing");
-      }
-
+      setTimeout(() => {
+        try {history.push(YOUTUBE_ROUTE);
+          console.log("route");
+        
+        }
+        catch (e){
+          console.log(e.error);
+        }
+          
+      }, 500);
       // console.log(user.getIsAuth())
     }
   };
