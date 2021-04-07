@@ -12,7 +12,7 @@ const Favourites = () => {
     const { Header, Content, Footer } = Layout;
     const {user} = React.useContext(Context)
     const history = useHistory();
-       let arr=["чем кормить кота", "query2", "query3"];
+    let arr=["чем кормить кота", "как отрендерить данные из архива", "в console.log(arr) все выводится"];
 
     React.useEffect(()=>{
         let decode=jwt_decode(localStorage.getItem("token"));
