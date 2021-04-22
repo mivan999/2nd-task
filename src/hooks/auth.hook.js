@@ -1,5 +1,5 @@
 import {useState, useCallback, useEffect} from 'react'
-
+import { useHistory } from "react-router-dom"
 const storageName = 'userData'
 
 export const useAuth = () => {
@@ -7,13 +7,16 @@ export const useAuth = () => {
     const [ready, setReady] = useState(false)
     const [userId, setUserId] = useState(null)
     const [loginUser, setLoginUser] = useState(null)
-    const [password, setPassword] =useState(null
+    const [password, setPassword] =useState(null)
     const jwt = require("jsonwebtoken");
+
     const login = useCallback((loginUser, id) => {
-        setLoginUser(loginUser)
-        setPassword(password)
-        const jwtToken=jwt.sign(
-             {
+        console.log("login auth")
+         window.location.assign('/youtube')
+         setLoginUser(loginUser)
+         setPassword(password)
+         const jwtToken=jwt.sign(
+              {
                  data: loginUser,
              },
              "secret",
@@ -37,9 +40,10 @@ export const useAuth = () => {
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storageName))
 
-        if (data && data.token) {
-            login(data.token, data.userId)
-        }
+         if (data && data.token) {
+        //     login(data.token, data.userId)
+        console.log(token)
+         }
         setReady(true)
     }, [login])
 
